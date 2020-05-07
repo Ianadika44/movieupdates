@@ -1,12 +1,12 @@
 import urllib.request,json
-from .models import Movie
+from .models import Movie,Trailer
 
 api_key = None
 base_url = None
 trailers_url = None
 
 def configure_request(app):
-    global api_key,base_url
+    global api_key,base_url,trailers_url
     api_key = app.config['MOVIE_API_KEY']
     base_url = app.config['MOVIE_API_BASE_URL']
     trailers_url = app.config['TRAILERS_URL']
@@ -67,10 +67,20 @@ def get_trailer(id):
         trailers_data = url.read()
         trailers_response = json.loads(trailers_data)
 
-    trailers_object = None
+    trailers_results = None
 
     if trailers_response['results']:
-        id = trailers_response.get('id')
-        key = trailers_response.get('key')
+        trailers_list = trailers_response['results']
+        trailers_results = process_trailers(trailers_list)
 
-        trailers_object = (id,key)
+    return trailers_results
+
+def process_trailers(list_trailers):
+    trailers_results =[]
+    for trailer in list_trailers:
+        id = trailer.get('id')
+        key = trailer.get('key')
+
+        trailer_object = Trailer(id,key)
+
+    return trailer_object

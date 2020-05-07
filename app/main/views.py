@@ -11,3 +11,11 @@ def index():
     top_movies = get_movies('top_rated')
 
     return render_template('index.html', popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie,top_movies=top_movies)
+
+@main.route('/movie/<int:id>')
+def movie(id):
+
+    movie = get_movie(id)
+    trailer = get_trailer(id)
+
+    return render_template('movie.html',movie=movie,trailer=trailer)
