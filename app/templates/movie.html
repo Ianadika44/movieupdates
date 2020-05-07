@@ -12,6 +12,13 @@
             <h3>{{ movie.title }}</h3>
             <p class="overview"> {{ movie.overview }}</p>
             <a href="https://www.youtube.com/watch?v={{trailer.key}}">View trailer</a>
+            <hr>
+            <h4>Here are some recommended movies:</h4>
+            <ul>
+                {% for movie in movies %}
+                <li><a href="/movie/{{movie.id}}">{{movie.title}}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
