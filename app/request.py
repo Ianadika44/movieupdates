@@ -3,11 +3,13 @@ from .models import Movie
 
 api_key = None
 base_url = None
+trailers_url = None
 
 def configure_request(app):
     global api_key,base_url
     api_key = app.config['MOVIE_API_KEY']
     base_url = app.config['MOVIE_API_BASE_URL']
+    trailers_url = app.config['TRAILERS_URL']
 
 def get_movies(category):
 
@@ -57,3 +59,18 @@ def get_movie(id):
             movie_object = Movie(id,title,overview,poster)
 
     return movie_object
+
+def get_trailer(id):
+    get_trailers_url = trailers_url.format(id,api_key)
+
+    with urllib.request.urlopen(get_trailers_url) as url:
+        trailers_data = url.read()
+        trailers_response = json.loads(trailers_data)
+
+    trailers_object = None
+
+    if trailers_response['results']:
+        id = trailers_response.get('id')
+        key = trailers_response.get('key')
+
+        trailers_object = (id,key)
