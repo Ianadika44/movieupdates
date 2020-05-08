@@ -1,6 +1,4 @@
 {
     "git.ignoreLimitWarning": true,
-    "python.linting.enabled": false
-=======
-    "python.pythonPath": "virtual/bin/python3.6"
+    "python.pythonPath": "virtual/bin/python3.6"   
 }
