@@ -1,8 +1,9 @@
 from . import auth
 
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,flash,request
 from ..models import User
-from .forms import RegistrationForm
+from flask_login import login_user
+from .forms import LoginForm,RegistrationForm
 from .. import db
 
 @auth.route('/login')
